@@ -23,6 +23,13 @@ In the cell below:
 * Import the `pyplot` module from `matplotlib` and set the standard alias of `plt`
 * Set matplotlib visualizations to appear inline with the command `%matplotlib inline`
 
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+%matplotlib inline
+```
+
 Now, let's import the dataset. 
 
 In the cell below:
@@ -32,13 +39,171 @@ In the cell below:
 
 
 ```python
-df = None
-
+df = pd.read_csv('population.csv')
+df.head()
 ```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Country Name</th>
+      <th>Country Code</th>
+      <th>Year</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Arab World</td>
+      <td>ARB</td>
+      <td>1960</td>
+      <td>92490932.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Arab World</td>
+      <td>ARB</td>
+      <td>1961</td>
+      <td>95044497.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Arab World</td>
+      <td>ARB</td>
+      <td>1962</td>
+      <td>97682294.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Arab World</td>
+      <td>ARB</td>
+      <td>1963</td>
+      <td>100411076.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Arab World</td>
+      <td>ARB</td>
+      <td>1964</td>
+      <td>103239902.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+df.info()
+```
+
+    <class 'pandas.core.frame.DataFrame'>
+    RangeIndex: 14885 entries, 0 to 14884
+    Data columns (total 4 columns):
+    Country Name    14885 non-null object
+    Country Code    14885 non-null object
+    Year            14885 non-null int64
+    Value           14885 non-null float64
+    dtypes: float64(1), int64(1), object(2)
+    memory usage: 465.2+ KB
+
 
 Our columns look fairly standard. Let's take a look at the `value_counts()` of the `'Country Name'` column to get a feel for how many years there are per country. 
 
 Do this now in the cell below. 
+
+
+```python
+df['Country Name'].value_counts()
+```
+
+
+
+
+    Jordan                                               57
+    Morocco                                              57
+    Trinidad and Tobago                                  57
+    Monaco                                               57
+    Korea, Dem. People’s Rep.                            57
+    OECD members                                         57
+    Uzbekistan                                           57
+    Mali                                                 57
+    Albania                                              57
+    New Caledonia                                        57
+    Australia                                            57
+    Ecuador                                              57
+    Zimbabwe                                             57
+    Central African Republic                             57
+    Fiji                                                 57
+    Cabo Verde                                           57
+    Oman                                                 57
+    Indonesia                                            57
+    Mauritius                                            57
+    Malaysia                                             57
+    Palau                                                57
+    Cote d'Ivoire                                        57
+    Zambia                                               57
+    Comoros                                              57
+    Isle of Man                                          57
+    British Virgin Islands                               57
+    Uruguay                                              57
+    Grenada                                              57
+    Lower middle income                                  57
+    Middle East & North Africa (IDA & IBRD countries)    57
+                                                         ..
+    Rwanda                                               57
+    Togo                                                 57
+    Guyana                                               57
+    Kazakhstan                                           57
+    Kiribati                                             57
+    South Asia                                           57
+    Aruba                                                57
+    Ghana                                                57
+    Early-demographic dividend                           57
+    Guinea                                               57
+    Guatemala                                            57
+    Namibia                                              57
+    World                                                57
+    Belize                                               57
+    South Asia (IDA & IBRD)                              57
+    United States                                        57
+    Turkey                                               57
+    Liberia                                              57
+    Kenya                                                57
+    Least developed countries: UN classification         57
+    Myanmar                                              57
+    Ireland                                              57
+    Thailand                                             57
+    Armenia                                              57
+    Germany                                              57
+    Kuwait                                               54
+    Eritrea                                              52
+    Serbia                                               27
+    West Bank and Gaza                                   27
+    Sint Maarten (Dutch part)                            19
+    Name: Country Name, Length: 263, dtype: int64
+
+
 
 ## Groupings and Subplots
 
@@ -54,12 +219,81 @@ In the cell below:
 
 
 ```python
-usa = None
+usa = df[df['Country Name'] == 'United States']
 
 
-canada = None
-
+canada = df[df['Country Name'] == 'Canada']
+canada.head()
 ```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Country Name</th>
+      <th>Country Code</th>
+      <th>Year</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>4617</th>
+      <td>Canada</td>
+      <td>CAN</td>
+      <td>1960</td>
+      <td>17909009.0</td>
+    </tr>
+    <tr>
+      <th>4618</th>
+      <td>Canada</td>
+      <td>CAN</td>
+      <td>1961</td>
+      <td>18271000.0</td>
+    </tr>
+    <tr>
+      <th>4619</th>
+      <td>Canada</td>
+      <td>CAN</td>
+      <td>1962</td>
+      <td>18614000.0</td>
+    </tr>
+    <tr>
+      <th>4620</th>
+      <td>Canada</td>
+      <td>CAN</td>
+      <td>1963</td>
+      <td>18964000.0</td>
+    </tr>
+    <tr>
+      <th>4621</th>
+      <td>Canada</td>
+      <td>CAN</td>
+      <td>1964</td>
+      <td>19325000.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
 
 Now that we have our data ready to go, lets go ahead and create a basic subplot. For our first batch of subplots, we'll use the quick way by making use of `plt.subplot()` and passing in the number of rows, number of columns, and the number of the subplot that we want to create. Then, we'll create our plot by passing in the corresponding data. 
 
@@ -77,14 +311,19 @@ Do this now in the cell below.
 
 
 ```python
-ax1 = None
-
-
-
-ax2 = None
-
-
+fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(20,10), sharey=True)
+ax1 = ax[0]
+ax1.plot(usa['Year'], usa['Value'])
+ax1.set_title('USA Population by year')
+ax2 = ax[1]
+ax2.plot(canada['Year'], canada['Value'])
+ax2.set_title('Canada Population by year')
+plt.subplots_adjust(wspace=0.4);
 ```
+
+
+![png](index_files/index_10_0.png)
+
 
 Our plots look pretty good, but they're a bit squished together, and the plots themselves are much too small, which squishes the axis values.  Both of these problems have an easy fix. We'll begin by using `plt.figure()` and passing in a larger `figsize` of `(20, 10)` to tell matplotlib we want the full subplot to be 20 inches by 10.  
 
@@ -95,6 +334,11 @@ In the cell below:
 * Call `plt.figure()` and use the `figsize` parameter to set the size of the total subplot to 20 inches wide by 10 inches tall. Remember to pass these values in as a tuple, with width first and height second. 
 * Copy the visualization code from the cell above into the cell below. 
 * After setting the title for the Canada plot, add the line `plt.subplots_adjust()` and pass in the parameter `wspace=0.4`.
+
+
+```python
+
+```
 
 Much better!
 
@@ -113,6 +357,11 @@ sample_list = ['foo', 'bar', 'baz']
 for index, value in enumerate(sample_list):
     print("Index: {}      Value: {}".format(index, value))    
 ```
+
+    Index: 0      Value: foo
+    Index: 1      Value: bar
+    Index: 2      Value: baz
+
 
 The `enumerate` keywor is extremely helpful anytime we need to do something that needs the index of the item we're looping through. Let's try an example.
 
@@ -172,25 +421,29 @@ Don't worry if this seems confusing--the code below has been commented to help y
 grouped_df = df.groupby('Country Name')
 
 # pass in figsize=(20,40), and also set the facecolor parameter to 'white'
-plt.figure(figsize=None, facecolor=None)
+plt.figure(figsize=(20,40), facecolor='white')
 
 # Complete the line below so that the first loop variable is the called index,
 # and the second loop variable is the tuple (countryname, population). 
-for None, None in enumerate(grouped_df):
+for index, (country_name, population) in enumerate(grouped_df):
     
     # Get the unique subplot where the plot we're creating during this iteration
     # of the loop will live. Our subplot will be 30 rows of 9 plots each. 
     # Set the third value to be index+1
-    ax = plt.subplot(30, 9, None)
+    ax = plt.subplot(30, 9, index+1)
     
     # Complete the line to create the plot for this subplot. 
     # Same visualizations as we created above!
-    population.plot(x=None, y=None, ax=None, legend=False)
+    population.plot(x='Year', y='Value', ax=ax, legend=False)
     
     # Set the title of each plot, so we know which country it represents
-    ax.set_title(None)
-
+    ax.set_title(country_name)
+plt.subplots_adjust(wspace=0.4, hspace=1.5)
 ```
+
+
+![png](index_files/index_18_0.png)
+
 
 Great job! Being able to effectively create subplots with matplotlib is a solid data visualization skill to have--and using `enumerate()` makes our code that much simpler!
 
